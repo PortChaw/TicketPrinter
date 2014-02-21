@@ -56,7 +56,7 @@ TicketPrinter.prototype =
 	  //pass along to settings controller
 	  //FIXME:
 	  OposM.app.getController("Settings").discoverPrintersProgressCallback(printerProgressObj);
-	}
+	},
 
 	configurePrinter: function(printer)
 	{
