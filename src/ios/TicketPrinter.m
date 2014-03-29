@@ -586,12 +586,14 @@ const char* COMMAND_DETERMINE_MODEL = "\x1d\x49\x43";
     return NULL;
 }
 
+//FIXME:
 - (NSMutableArray *) getDNSServers
 {
     NSMutableArray *addresses = [[NSMutableArray alloc] init];
 
     res_state res = malloc(sizeof(struct __res_state));
 
+    /* FIXME: res_ninit results in compile error
     int result = res_ninit(res);
 
     if ( result == 0 )
@@ -601,6 +603,7 @@ const char* COMMAND_DETERMINE_MODEL = "\x1d\x49\x43";
             [addresses addObject:[NSString stringWithUTF8String:  inet_ntoa(res->nsaddr_list[i].sin_addr)]];
         }
     }
+    */
 
     // use router address if no DNS server is available yet
     if ([addresses count] <= 0)
