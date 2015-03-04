@@ -22,7 +22,6 @@
 #include "route.h"
 #include <net/if.h>
 #include <string.h>
-#import "NSData+Base64.h"
 
 #define BIND_8_COMPAT
 #include <arpa/nameser.h>

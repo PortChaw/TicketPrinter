@@ -68,6 +68,7 @@ const char* COMMAND_DETERMINE_MODEL = "\x1d\x49\x43";
         NSString *charMap = @"ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜø£Ø×ƒáíóúñÑªº¿®¬½¼¡«»░▒▓│┤ÁÂÀ©╣║╗╝¢¥┐└┴┬├─┼ãÃ╚╔╩╦╠═╬¤ðÐÊËÈıÍÎÏ┘┌█▄¦Ì▀ÓßÔÒõÕµþÞÚÛÙýÝ¯´≡±‗¾¶§÷¸°¨·¹³²■";
         NSRange match;
 
+
         for(int i = 0; i < length; i++)
         {
             if([stringToWrite characterAtIndex:i] > 127 && [stringToWrite characterAtIndex:i] < 255)
@@ -416,10 +417,7 @@ const char* COMMAND_DETERMINE_MODEL = "\x1d\x49\x43";
     {
         requestStr = [NSMutableString stringWithFormat:@"POST %s HTTP/1.0\r\nOrigin: http://%@\r\nUser-Agent: %s\r\nContent-Type: application/x-www-form-urlencoded\r\nReferer:http://%@\r\n", PRINTER_CONFIG_PATH_THERMAL, printerHost, HTTP_USER_AGENT, printerHost];
         NSString *basicAuth = [NSString stringWithFormat:@"%s:%s", PRINTER_DEFAULT_USER, PRINTER_DEFAULT_PASS];
-//TODO: iOS7 way        NSString *basicAuthEncoded = [[basicAuth dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
-
-        NSData *basicAuthData = [basicAuth dataUsingEncoding:NSUTF8StringEncoding];
-        NSString *basicAuthEncoded = [basicAuthData base64EncodedString];
+        NSString *basicAuthEncoded = [[basicAuth dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
 
         NSString *basicAuthHeader = [NSString stringWithFormat:@"Authorization: Basic %@\r\n\r\n", basicAuthEncoded];
 
