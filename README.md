@@ -10,3 +10,5 @@ Cordova iOS plugin for interfacing with ticket (receipt) printers, namely Bixolo
   * NB: it may be necessary to re-run this command to pick up changes since this is a copy operation rather than a symbolic link.  TODO: improve this process.
   * to _uninstall_ the plugin : `plugman uninstall --platform ios --project platforms/ios --plugin com.portchaw.ticketprinter` (from your application's Cordova directory)
 
+* or 
+  `cca plugin add ../../../TicketPrinter`
