@@ -4,14 +4,18 @@
     id="com.portchaw.ticketprinter"
     version="0.0.1">
     <description>Library for interfacing with ticket (receipt) printers, namely Bixolon thermal and impact printers.</description>
+    <engines>
+      <engine name="cordova" version=">=3.0.0" />
+    </engines>
     <js-module name="TicketPrinter" src="www/TicketPrinter.js">
       <clobbers target="oposm.TicketPrinter" />
-    </js-module><platform name="ios">
-    <config-file parent="/*" target="config.xml">
-      <feature name="TicketPrinter">
-        <param name="ios-package" value="TicketPrinter" />
-      </feature>
-    </config-file>
+    </js-module>
+    <platform name="ios">
+      <config-file parent="/*" target="config.xml">
+        <feature name="TicketPrinter">
+          <param name="ios-package" value="TicketPrinter" />
+        </feature>
+      </config-file>
     <header-file src="src/ios/route.h" />
     <header-file src="src/ios/TicketPrinter.h" />
     <source-file src="src/ios/TicketPrinter.m" />
