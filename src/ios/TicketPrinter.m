@@ -68,9 +68,11 @@ const char* COMMAND_DETERMINE_MODEL = "\x1d\x49\x43";
         NSString *charMap = @"ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜø£Ø×ƒáíóúñÑªº¿®¬½¼¡«»░▒▓│┤ÁÂÀ©╣║╗╝¢¥┐└┴┬├─┼ãÃ╚╔╩╦╠═╬¤ðÐÊËÈıÍÎÏ┘┌█▄¦Ì▀ÓßÔÒõÕµþÞÚÛÙýÝ¯´≡±‗¾¶§÷¸°¨·¹³²■";
         NSRange match;
 
-
         for(int i = 0; i < length; i++)
         {
+            //FIXME: turn back on character mapping / encoding
+            // It's turned off for now, since it breaks bitmap (logo on receipt) printing
+        /*
             if([stringToWrite characterAtIndex:i] > 127 && [stringToWrite characterAtIndex:i] < 255)
             {
 
@@ -85,10 +87,10 @@ const char* COMMAND_DETERMINE_MODEL = "\x1d\x49\x43";
             }
             else
             {
+        */
                 data[i] = [stringToWrite characterAtIndex: i];
-            }
+//            }
         }
-
         CFDataRef cdDataToSend = CFDataCreate(kCFAllocatorDefault, data, length);
         int retVal = CFSocketConnectToAddress(sock_id, addr, timeoutSecs);
 
