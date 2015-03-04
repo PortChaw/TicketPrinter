@@ -34,7 +34,7 @@ TicketPrinter.prototype =
 	      printer.port,
 	      timeout,
 	      commandToSend,
-	      "window.TicketPrinter.printerCommandCallback"
+	      "oposm.TicketPrinter.printerCommandCallback"
 	    ]
 	    );
 	  }
@@ -48,14 +48,15 @@ TicketPrinter.prototype =
 
 	discoverPrinters: function()
 	{
-	  cordova.exec(null, null, "TicketPrinter", "discoverPrinters", ["window.TicketPrinter.discoverPrintersProgressCallback"]);
+	  cordova.exec(null, null, "TicketPrinter", "discoverPrinters", ["oposm.TicketPrinter.discoverPrintersProgressCallback"]);
 	},
 
 	discoverPrintersProgressCallback: function(printerProgressObj)
 	{
-	  //pass along to settings controller
 	  //FIXME:
-	  OposM.app.getController("Settings").discoverPrintersProgressCallback(printerProgressObj);
+	  //pass along to settings controller
+	  //OposM.app.getController("Settings").discoverPrintersProgressCallback(printerProgressObj);
+	  console.log(printerProgressObj);
 	},
 
 	configurePrinter: function(printer)
@@ -64,7 +65,7 @@ TicketPrinter.prototype =
 	  if (printer.host.length > 0)
 	  {
 	    cordova.exec(null, null, "TicketPrinter", "configurePrinter",
-	      [printer.host, printer.print_type, "window.TicketPrinter.printerCommandCallback"]);
+	      [printer.host, printer.print_type, "oposm.TicketPrinter.printerCommandCallback"]);
 	  }
 	}
 };
