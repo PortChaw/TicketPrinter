@@ -20,7 +20,7 @@
 
 const uint PRINTER_PORT = 9100;
 const uint MAX_IP_RANGE = 255;
-const uint PRINTER_TIMEOUT_SECS = 5;
+const double PRINTER_PING_TIMEOUT_SECS = 0.1;
 const uint PRINTER_CONFIG_HTTP_PORT = 80;
 const uint PRINTER_COMMAND_TAG = 0;
 const uint PRINTER_CONFIG_TAG = 1;
@@ -271,8 +271,12 @@ const char* COMMAND_DETERMINE_MODEL = "\x1d\x49\x43";
     [self.commandDelegate runInBackground:^{
         NSString *host = [command.arguments objectAtIndex:0];
         NSUInteger port = [[command.arguments objectAtIndex:1] intValue];
-        NSUInteger timeout = [[command.arguments objectAtIndex:2] intValue];
+        double timeout = [[command.arguments objectAtIndex:2] doubleValue];
 
+        if (!(timeout > 0))
+        {
+            timeout = PRINTER_PING_TIMEOUT_SECS;
+        }
         CDVPluginResult* pluginResult = nil;
         BOOL success = [self ping:host port:port timeout:timeout];
 
@@ -308,7 +312,7 @@ const char* COMMAND_DETERMINE_MODEL = "\x1d\x49\x43";
             NSDictionary *jsonDict;
             NSString *jsStatement;
             NSString *host = [NSString stringWithFormat:@"%@.%@.%@.%d", octets[0], octets[1], octets[2], i];
-            bool success = [self ping:host port:PRINTER_PORT timeout:PRINTER_TIMEOUT_SECS];
+            bool success = [self ping:host port:PRINTER_PORT timeout:PRINTER_PING_TIMEOUT_SECS];
             NSString *progress = [NSString stringWithFormat:@"%u/%u", i, MAX_IP_RANGE];
             NSData *jsonData = nil;
             if (success)
@@ -349,9 +353,9 @@ const char* COMMAND_DETERMINE_MODEL = "\x1d\x49\x43";
     }
 }
 
-- (BOOL) ping: (NSString *)host port:(NSUInteger)port timeout:(NSUInteger)timeout
+- (BOOL) ping: (NSString *)host port:(NSUInteger)port timeout:(double)timeout
 {
-    CFTimeInterval timeoutSecs = 5; //FIXME:
+    CFTimeInterval timeoutSecs = (CFTimeInterval) timeout;
     CFSocketRef sock_id = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_STREAM, IPPROTO_TCP, kCFSocketNoCallBack, NULL, NULL);
     struct sockaddr_in addr4;
     memset(&addr4, 0, sizeof(addr4));
