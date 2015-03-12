@@ -139,15 +139,17 @@ const char* COMMAND_DETERMINE_MODEL = "\x1d\x49\x43";
 
     NSError *error = nil;
     CDVPluginResult* pluginResult = nil;
+
+    //failure to connect (success is asyncronous callback)
     if (![asyncSocket connectToHost:host onPort:port withTimeout:timeout error:&error])
     {
         NSDictionary *jsonDict;
         NSData *jsonData = nil;
         jsonDict = [NSDictionary dictionaryWithObjectsAndKeys:
                     [NSNumber numberWithBool:NO], @"success",
-                    "error connecting", @"response",
+                    @"error connecting", @"response",
                     host, @"host",
-                    port, @"port",
+                    [NSNumber numberWithUnsignedInt:port], @"port",
                     nil];
         jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:0 error:nil];
 
